@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\ImageUtil">
+      <UniqueIdentifier>{652bb3a3-5390-4c3a-b421-c0b441509e97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces">
+      <UniqueIdentifier>{141a3cb8-eefc-4dee-b264-3febf6a3d9ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Parser">
+      <UniqueIdentifier>{014ac2da-5e51-41fe-8b4a-0f77303cf5f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Platform">
+      <UniqueIdentifier>{98c9894c-27d5-42ad-9a8a-677740f74cc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sections">
+      <UniqueIdentifier>{a9a9919f-0242-4c44-9099-b8ec790c76bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Types">
+      <UniqueIdentifier>{2d982778-9675-4939-b9bc-54366d95f39b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{5e294a37-2894-46ab-bfe4-e5514dc577f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Zip">
+      <UniqueIdentifier>{ab2a2dab-9c34-4bdb-82f3-292fd8e5a2db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exporter">
+      <UniqueIdentifier>{fc8cf450-d1e8-451b-a7de-ab29caa7ca30}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Psd\Psd.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdDocumentation.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\Psdinttypes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\Psdispod.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\Psdisunsigned.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdPch.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\Psdstdint.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdDecompressRle.h">
+      <Filter>Source Files\ImageUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdInterleave.h">
+      <Filter>Source Files\ImageUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdLayerCanvasCopy.h">
+      <Filter>Source Files\ImageUtil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdAllocator.h">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdFile.h">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdMallocAllocator.h">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdNativeFile.h">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdParseColorModeDataSection.h">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdParseDocument.h">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdParseImageDataSection.h">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdParseImageResourcesSection.h">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdParseLayerMaskSection.h">
+      <Filter>Source Files\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdAssert.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdCompilerMacros.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdLog.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdNamespace.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdPlatform.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdTypes.h">
+      <Filter>Source Files\Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdColorModeDataSection.h">
+      <Filter>Source Files\Sections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdImageDataSection.h">
+      <Filter>Source Files\Sections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdImageResourcesSection.h">
+      <Filter>Source Files\Sections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdLayerMaskSection.h">
+      <Filter>Source Files\Sections</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdAlphaChannel.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdBlendMode.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdChannel.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdChannelType.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdColorMode.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdCompressionType.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdDocument.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdImageResourceType.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdLayer.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdLayerMask.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdLayerType.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdPlanarImage.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdSection.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdVectorMask.h">
+      <Filter>Source Files\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdBitUtil.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdEndianConversion.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdFixedSizeString.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdKey.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdMemoryUtil.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdSyncFileReader.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdSyncFileUtil.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdUnionCast.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\Psdminiz.h">
+      <Filter>Source Files\Zip</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdExport.h">
+      <Filter>Source Files\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdExportChannel.h">
+      <Filter>Source Files\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdExportColorMode.h">
+      <Filter>Source Files\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdExportDocument.h">
+      <Filter>Source Files\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdExportLayer.h">
+      <Filter>Source Files\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdExportMetaDataAttribute.h">
+      <Filter>Source Files\Exporter</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Psd\PsdSyncFileWriter.h">
+      <Filter>Source Files\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Psd\PsdPch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdDecompressRle.cpp">
+      <Filter>Source Files\ImageUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdInterleave.cpp">
+      <Filter>Source Files\ImageUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdLayerCanvasCopy.cpp">
+      <Filter>Source Files\ImageUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdAllocator.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdFile.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdMallocAllocator.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdNativeFile.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdParseColorModeDataSection.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdParseDocument.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdParseImageDataSection.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdParseImageResourcesSection.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdParseLayerMaskSection.cpp">
+      <Filter>Source Files\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdBlendMode.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdColorMode.cpp">
+      <Filter>Source Files\Types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdFixedSizeString.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdSyncFileReader.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\Psdminiz.c">
+      <Filter>Source Files\Zip</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdExport.cpp">
+      <Filter>Source Files\Exporter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Psd\PsdSyncFileWriter.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\src\Psd\PsdBitUtil.inl">
+      <Filter>Source Files\Util</Filter>
+    </None>
+    <None Include="..\..\src\Psd\PsdEndianConversion.inl">
+      <Filter>Source Files\Util</Filter>
+    </None>
+    <None Include="..\..\src\Psd\PsdMemoryUtil.inl">
+      <Filter>Source Files\Util</Filter>
+    </None>
+    <None Include="..\..\src\Psd\PsdSyncFileUtil.inl">
+      <Filter>Source Files\Util</Filter>
+    </None>
+    <None Include="..\..\src\Psd\PsdUnionCast.inl">
+      <Filter>Source Files\Util</Filter>
+    </None>
+  </ItemGroup>
+</Project>
