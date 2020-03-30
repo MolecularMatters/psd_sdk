@@ -206,7 +206,11 @@ namespace
 // ---------------------------------------------------------------------------------------------------------------------
 int SampleReadPsd(void)
 {
+#if PSD_USE_MSVC
 	const std::wstring srcPath = L"..\\..\\bin\\Sample.psd";
+#else
+    const std::wstring srcPath = L"/Users/oluseyi/Projects/psd_sdk/bin/Sample.psd";
+#endif
 
 	MallocAllocator allocator;
 	NativeFile file(&allocator);
@@ -732,7 +736,11 @@ int SampleWritePsd(void)
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
+#if PSD_USE_MSCVC
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
+#else
+int main(int argc, const char * argv[])
+#endif
 {
 	{
 		const int result = SampleReadPsd();
