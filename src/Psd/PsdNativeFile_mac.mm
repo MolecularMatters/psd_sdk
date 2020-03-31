@@ -43,7 +43,8 @@ bool NativeFile::DoOpenRead(const wchar_t* filename)
                                               length:(wcslen(filename) * sizeof(*filename))
                                             encoding:NSUTF32LittleEndianStringEncoding];
     fileHandle = [NSFileHandle fileHandleForReadingAtPath:path];
-    if (fileHandle == nil) {
+    if (fileHandle == nil)
+    {
         PSD_ERROR("NativeFile", "Cannot obtain handle for file \"%ls\".", filename);
         return false;
     }
@@ -60,7 +61,8 @@ bool NativeFile::DoOpenWrite(const wchar_t* filename)
                                               length:(wcslen(filename) * sizeof(*filename))
                                             encoding:NSUTF32LittleEndianStringEncoding];
     fileHandle = [NSFileHandle fileHandleForWritingAtPath:path];
-    if (fileHandle == nil) {
+    if (fileHandle == nil)
+    {
         PSD_ERROR("NativeFile", "Cannot obtain handle for file \"%ls\".", filename);
         return false;
     }
@@ -93,7 +95,8 @@ bool NativeFile::DoClose(void)
 // ---------------------------------------------------------------------------------------------------------------------
 File::ReadOperation NativeFile::DoRead(void* buffer, uint32_t count, uint64_t position)
 {
-    if (!fileHandle) {
+    if (!fileHandle)
+    {
         PSD_ERROR("NativeFile", "Attempt to read from closed file");
         return nullptr;
     }
@@ -101,10 +104,12 @@ File::ReadOperation NativeFile::DoRead(void* buffer, uint32_t count, uint64_t po
     [fileHandle synchronizeFile];
     [fileHandle seekToFileOffset:position];
     fileIOcompleted = dispatch_semaphore_create(0);
-    fileHandle.readabilityHandler = ^void (NSFileHandle *handle) {
+    fileHandle.readabilityHandler = ^void (NSFileHandle *handle)
+    {
         NSError *error;
         [handle readDataUpToLength:count error:&error];
-        if (error != nil) {
+        if (error != nil)
+        {
             PSD_ERROR("NativeFile", "Cannot read %u bytes from file position %" PRIu64 " asynchronously.", count, position);
         }
         dispatch_semaphore_signal(fileIOcompleted);
@@ -140,7 +145,8 @@ bool NativeFile::DoWaitForRead(File::ReadOperation& operation)
 // ---------------------------------------------------------------------------------------------------------------------
 File::WriteOperation NativeFile::DoWrite(const void* buffer, uint32_t count, uint64_t position)
 {
-    if (!fileHandle) {
+    if (!fileHandle)
+    {
         PSD_ERROR("NativeFile", "Attempt to write to closed file");
         return nullptr;
     }
@@ -148,11 +154,13 @@ File::WriteOperation NativeFile::DoWrite(const void* buffer, uint32_t count, uin
     [fileHandle synchronizeFile];
     [fileHandle seekToFileOffset:position];
     fileIOcompleted = dispatch_semaphore_create(0);
-    fileHandle.writeabilityHandler = ^void (NSFileHandle *handle) {
+    fileHandle.writeabilityHandler = ^void (NSFileHandle *handle)
+    {
         NSData *data = [NSData dataWithBytes:buffer length:count];
         NSError *error;
         [handle writeData:data error:&error];
-        if (error != nil) {
+        if (error != nil)
+        {
             PSD_ERROR("NativeFile", "Cannot write %u bytes from file position %" PRIu64 " asynchronously.", count, position);
         }
         dispatch_semaphore_signal(fileIOcompleted);

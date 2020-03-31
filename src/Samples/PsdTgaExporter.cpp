@@ -10,7 +10,8 @@
 #include <codecvt>
 #include <locale>
 
-void OutputDebugStringA(const char *message) {
+void OutputDebugStringA(const char *message)
+{
     fprintf(stderr, "%s", message);
 }
 #endif
