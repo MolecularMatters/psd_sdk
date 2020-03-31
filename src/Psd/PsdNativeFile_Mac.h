@@ -1,5 +1,5 @@
 //
-//  PsdNativeFile_mac.cpp
+//  PsdNativeFile_Mac.cpp
 //  Contributed to psd_sdk
 //
 //  Created by Oluseyi Sonaiya on 3/29/20.

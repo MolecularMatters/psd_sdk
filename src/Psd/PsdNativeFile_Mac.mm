@@ -1,5 +1,5 @@
 //
-//  PsdNativeFile_mac.cpp
+//  PsdNativeFile_Mac.mm
 //  Contributed to psd_sdk
 //
 //  Created by Oluseyi Sonaiya on 3/29/20.
@@ -11,7 +11,7 @@
 #include <wchar.h>
 
 #include "PsdPch.h"
-#include "PsdNativeFile_mac.h"
+#include "PsdNativeFile_Mac.h"
 
 #include "PsdAllocator.h"
 #include "PsdPlatform.h"
