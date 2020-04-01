@@ -38,8 +38,7 @@ private:
 
 	virtual uint64_t DoGetSize(void) const PSD_OVERRIDE;
 
-    NSFileHandle *fileHandle;
-    dispatch_semaphore_t fileIOcompleted;
+    dispatch_fd_t m_fileDescriptor;
 };
 
 PSD_NAMESPACE_END
