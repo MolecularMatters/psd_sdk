@@ -16,7 +16,6 @@ PSD_NAMESPACE_BEGIN
 namespace memoryUtil
 {
 	/// Allocates memory for an instance of type T, using T's default alignment.
-	/// \remark Note that this does not call any constructors, and hence only works for POD types.
 	template <typename T>
 	inline T* Allocate(Allocator* allocator);
 
@@ -30,6 +29,7 @@ namespace memoryUtil
 	inline void Free(Allocator* allocator, T*& ptr);
 
 	/// Frees an array previously allocated with \a allocator, and nullifies \a ptr.
+	/// \remark Note that this does not call any destructors, and hence only works for POD types.
 	template <typename T>
 	inline void FreeArray(Allocator* allocator, T*& ptr);
 }
