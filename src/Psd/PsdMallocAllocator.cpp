@@ -20,7 +20,11 @@ void* MallocAllocator::DoAllocate(size_t size, size_t alignment)
 {
 #if defined(__APPLE__)
     void *m = 0;
-    errno = posix_memalign(&m, alignment, size);
+    size_t minAlignment = sizeof(void *);
+    while (alignment > minAlignment) {
+        minAlignment *= 2;
+    }
+    errno = posix_memalign(&m, minAlignment, size);
     return errno ? NULL : m;
 #elif defined(__GNUG__)
 	return memalign(alignment, size);
