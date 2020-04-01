@@ -81,7 +81,7 @@ namespace tgaExporter
 		const errno_t success = _wfopen_s(&file, filename, L"wb");
         if (success != 0)
 #else
-        std::wstring_convert<std::codecvt_utf8<wchar_t>,wchar_t> convert;
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>,wchar_t> convert;
         std::string s = convert.to_bytes(filename);
         char const *cs = s.c_str();
         file = fopen(cs, "wb");
