@@ -210,10 +210,9 @@ bool NativeFile::DoWaitForWrite(File::WriteOperation& operation)
 // ---------------------------------------------------------------------------------------------------------------------
 uint64_t NativeFile::DoGetSize(void) const
 {
-    [fileHandle synchronizeFile];
-    const uint64_t fileSize = [fileHandle seekToEndOfFile];
+// fstat
 
-    return fileSize;
+    return 0;
 }
 
 PSD_NAMESPACE_END
