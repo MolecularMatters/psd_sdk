@@ -204,9 +204,31 @@ namespace
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
+static std::wstring GetSampleInputPath(void)
+{
+	// TODO: add support for other platforms
+#ifdef _WIN32
+	return L"../../bin/";
+#endif
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
+static std::wstring GetSampleOutputPath(void)
+{
+	// TODO: add support for other platforms
+#ifdef _WIN32
+	return L"../../bin/";
+#endif
+}
+
+
+// ---------------------------------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------------------------
 int SampleReadPsd(void)
 {
-	const std::wstring srcPath = L"..\\..\\bin\\Sample.psd";
+	const std::wstring srcPath = GetSampleInputPath() + L"Sample.psd";
 
 	MallocAllocator allocator;
 	NativeFile file(&allocator);
@@ -351,6 +373,7 @@ int SampleReadPsd(void)
 				if (document->bitsPerChannel == 8u)
 				{
 					std::wstringstream filename;
+					filename << GetSampleOutputPath();
 					filename << L"layer";
 					filename << layerName.str();
 					filename << L".tga";
@@ -362,6 +385,7 @@ int SampleReadPsd(void)
 				if (document->bitsPerChannel == 8u)
 				{
 					std::wstringstream filename;
+					filename << GetSampleOutputPath();
 					filename << L"layer";
 					filename << layerName.str();
 					filename << L".tga";
@@ -386,6 +410,7 @@ int SampleReadPsd(void)
 				void* maskData = layer->layerMask->data;
 				{
 					std::wstringstream filename;
+					filename << GetSampleOutputPath();
 					filename << L"layer";
 					filename << layerName.str();
 					filename << L"_usermask.tga";
@@ -396,6 +421,7 @@ int SampleReadPsd(void)
 				void* maskCanvasData = ExpandMaskToCanvas(document, &allocator, layer->layerMask);
 				{
 					std::wstringstream filename;
+					filename << GetSampleOutputPath();
 					filename << L"canvas";
 					filename << layerName.str();
 					filename << L"_usermask.tga";
@@ -414,6 +440,7 @@ int SampleReadPsd(void)
 				void* maskData = layer->vectorMask->data;
 				{
 					std::wstringstream filename;
+					filename << GetSampleOutputPath();
 					filename << L"layer";
 					filename << layerName.str();
 					filename << L"_vectormask.tga";
@@ -423,6 +450,7 @@ int SampleReadPsd(void)
 				void* maskCanvasData = ExpandMaskToCanvas(document, &allocator, layer->vectorMask);
 				{
 					std::wstringstream filename;
+					filename << GetSampleOutputPath();
 					filename << L"canvas";
 					filename << layerName.str();
 					filename << L"_vectormask.tga";
@@ -512,6 +540,7 @@ int SampleReadPsd(void)
 			if (document->bitsPerChannel == 8)
 			{
 				std::wstringstream filename;
+				filename << GetSampleOutputPath();
 				filename << L"merged.tga";
 				if (isRgb)
 				{
@@ -543,6 +572,7 @@ int SampleReadPsd(void)
 					if (document->bitsPerChannel == 8)
 					{
 						std::wstringstream filename;
+						filename << GetSampleOutputPath();
 						filename << L"extra_channel_";
 						filename << channel->asciiName.c_str();
 						filename << L".tga";
@@ -573,7 +603,7 @@ int SampleWritePsd(void)
 	GenerateImageData();
 
 	{
-		const std::wstring dstPath = L"SampleWrite_8.psd";
+		const std::wstring dstPath = GetSampleOutputPath() + L"SampleWrite_8.psd";
 
 		MallocAllocator allocator;
 		NativeFile file(&allocator);
@@ -653,7 +683,7 @@ int SampleWritePsd(void)
 		file.Close();
 	}
 	{
-		const std::wstring dstPath = L"SampleWrite_16.psd";
+		const std::wstring dstPath = GetSampleOutputPath() + L"SampleWrite_16.psd";
 
 		MallocAllocator allocator;
 		NativeFile file(&allocator);
@@ -691,7 +721,7 @@ int SampleWritePsd(void)
 		file.Close();
 	}
 	{
-		const std::wstring dstPath = L"SampleWrite_32.psd";
+		const std::wstring dstPath = GetSampleOutputPath() + L"SampleWrite_32.psd";
 
 		MallocAllocator allocator;
 		NativeFile file(&allocator);
