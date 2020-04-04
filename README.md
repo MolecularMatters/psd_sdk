@@ -24,7 +24,9 @@ Contains the library source code as well as a sample application that shows how 
 
 ## Platforms
 
-At the moment, the SDK only compiles for Windows. As we are primarily a Windows developer, we don't plan on supporting OS X, Linux, or mobile platforms ourselves. We would gladly accept pull requests though, if anybody wants to help out.
+At the moment, the SDK compiles for Windows and MacOS. The MacOS port was kindly provided by Oluseyi Sonaiya.
+
+As we are primarily a Windows developer, we don't plan on supporting Linux or mobile platforms ourselves. We would gladly accept pull requests though, if anybody wants to help out.
 
 ## Porting to other platforms
 
@@ -41,3 +43,8 @@ Uses either `_byteswap_*` or `__builtin_bswap*` functions. Either of those shoul
 
 ### PsdCompilerMacros.h:
 Provides an abstraction over certain compiler/preprocessor features, and should already work for MSVC, Clang, and GCC.
+
+## macOS
+When building and debugging the PsdSamples command line utility under Xcode, you will need to edit the current scheme's working directory so that it can locate the supplied PSD file. Set the working directory to be the `build/Xcode directory` inside of wherever you have checked out the `psd_sdk` source code.
+
+Running it directly from the command line is a little trickier; copy the binary from whatever output location it is in to `build/Xcode`, and then execute.
