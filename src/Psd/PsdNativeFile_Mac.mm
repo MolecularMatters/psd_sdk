@@ -81,7 +81,7 @@ bool NativeFile::DoOpenWrite(const wchar_t* filename)
     std::wstring_convert<std::codecvt_utf8<wchar_t>,wchar_t> convert;
     std::string s = convert.to_bytes(filename);
     char const *cs = s.c_str();
-    m_fileDescriptor = open(cs, O_WRONLY);
+    m_fileDescriptor = open(cs, O_WRONLY|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP);
     if (m_fileDescriptor == -1)
     {
         PSD_ERROR("NativeFile", "Cannot obtain handle for file \"%ls\".", filename);
