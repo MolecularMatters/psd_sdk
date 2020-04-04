@@ -173,11 +173,14 @@ File::WriteOperation NativeFile::DoWrite(const void* buffer, uint32_t count, uin
     operation->dataToWrite = dispatch_data_create(buffer, count, queue, DISPATCH_DATA_DESTRUCTOR_DEFAULT);
     operation->ioHandler = ^(dispatch_data_t d, int error)
     {
-        if (error != 0 )
+        if (d != NULL || error != 0 )
         {
-            PSD_ERROR("NativeFile", "Cannot read %u bytes from file position %" PRIu64 " asynchronously.", count, position);
+            PSD_ERROR("NativeFile", "Cannot write %u bytes to file position %" PRIu64 " asynchronously.", count, position);
         }
-        operation->bytesWritten = dispatch_data_get_size(d);
+        else
+        {
+            operation->bytesWritten = operation->length;
+        }
         dispatch_semaphore_signal(operation->semaphore);
     };
     return static_cast<File::ReadOperation>(operation);
