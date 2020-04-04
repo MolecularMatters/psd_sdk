@@ -4,7 +4,12 @@
 #include "PsdPch.h"
 #include "PsdMallocAllocator.h"
 
+#if defined(__APPLE__)
+#include <stdlib.h>
+#include <errno.h>
+#else
 #include <malloc.h>
+#endif
 
 
 PSD_NAMESPACE_BEGIN
@@ -13,7 +18,15 @@ PSD_NAMESPACE_BEGIN
 // ---------------------------------------------------------------------------------------------------------------------
 void* MallocAllocator::DoAllocate(size_t size, size_t alignment)
 {
-#if defined(__GNUG__)
+#if defined(__APPLE__)
+    void *m = 0;
+    size_t minAlignment = sizeof(void *);
+    while (alignment > minAlignment) {
+        minAlignment *= 2;
+    }
+    errno = posix_memalign(&m, minAlignment, size);
+    return errno ? NULL : m;
+#elif defined(__GNUG__)
 	return memalign(alignment, size);
 #else
 	return _aligned_malloc(size, alignment);
@@ -25,7 +38,7 @@ void* MallocAllocator::DoAllocate(size_t size, size_t alignment)
 // ---------------------------------------------------------------------------------------------------------------------
 void MallocAllocator::DoFree(void* ptr)
 {
-#if defined(__GNUG__)
+#if defined(__APPLE__) || defined(__GNUG__)
 	free(ptr);
 #else
 	_aligned_free(ptr);

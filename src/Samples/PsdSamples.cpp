@@ -207,9 +207,9 @@ namespace
 static std::wstring GetSampleInputPath(void)
 {
 	// TODO: add support for other platforms
-#ifdef _WIN32
+//#ifdef _WIN32
 	return L"../../bin/";
-#endif
+//#endif
 }
 
 
@@ -218,9 +218,9 @@ static std::wstring GetSampleInputPath(void)
 static std::wstring GetSampleOutputPath(void)
 {
 	// TODO: add support for other platforms
-#ifdef _WIN32
+//#ifdef _WIN32
 	return L"../../bin/";
-#endif
+//#endif
 }
 
 
@@ -762,7 +762,11 @@ int SampleWritePsd(void)
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
+#if PSD_USE_MSCVC
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
+#else
+int main(int argc, const char * argv[])
+#endif
 {
 	{
 		const int result = SampleReadPsd();

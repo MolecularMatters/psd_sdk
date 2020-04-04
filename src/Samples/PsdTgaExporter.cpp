@@ -6,7 +6,15 @@
 #include "PsdTgaExporter.h"
 
 #include <stdio.h>
+#if defined(__APPLE__)
+#include <codecvt>
+#include <locale>
 
+void OutputDebugStringA(const char *message)
+{
+    fprintf(stderr, "%s", message);
+}
+#endif
 
 namespace
 {
@@ -69,8 +77,16 @@ namespace tgaExporter
 	FILE* CreateFile(const wchar_t* filename)
 	{
 		FILE* file = nullptr;
+#if PSD_USE_MSVC
 		const errno_t success = _wfopen_s(&file, filename, L"wb");
-		if (success != 0)
+        if (success != 0)
+#else
+        std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>,wchar_t> convert;
+        std::string s = convert.to_bytes(filename);
+        char const *cs = s.c_str();
+        file = fopen(cs, "wb");
+        if (file == NULL)
+#endif
 		{
 			OutputDebugStringA("Cannot create file for writing.");
 			return nullptr;

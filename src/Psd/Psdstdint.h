@@ -26,5 +26,8 @@
 #else
 	PSD_PUSH_WARNING_LEVEL(0)
 	#include <stdint.h>
+    #if defined(__APPLE__)
+        #include <assert.h>
+    #endif
 	PSD_POP_WARNING_LEVEL
 #endif
