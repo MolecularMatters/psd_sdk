@@ -18,20 +18,23 @@
 	#define PSD_USE_CLANG 0
 	#define PSD_USE_GCC 0
 	#define PSD_USE_MSVC 1
-	#if _MSC_VER < 1500
-		#define PSD_USE_MSVC_VER 2005
-	#elif _MSC_VER == 1500
-		#define PSD_USE_MSVC_VER 2008
-	#elif _MSC_VER == 1600
-		#define PSD_USE_MSVC_VER 2010
-	#elif _MSC_VER == 1700
-		#define PSD_USE_MSVC_VER 2012
-	#elif _MSC_VER == 1800
-		#define PSD_USE_MSVC_VER 2013
-	#elif _MSC_VER == 1900
-		#define PSD_USE_MSVC_VER 2015
-	#elif _MSC_VER > 1910
+
+	#if _MSC_VER >= 1920
+		#define PSD_USE_MSVC_VER 2019
+	#elif _MSC_VER >= 1910
 		#define PSD_USE_MSVC_VER 2017
+	#elif _MSC_VER >= 1900
+		#define PSD_USE_MSVC_VER 2015
+	#elif _MSC_VER >= 1800
+		#define PSD_USE_MSVC_VER 2013
+	#elif _MSC_VER >= 1700
+		#define PSD_USE_MSVC_VER 2012
+	#elif _MSC_VER >= 1600
+		#define PSD_USE_MSVC_VER 2010
+	#elif _MSC_VER >= 1500
+		#define PSD_USE_MSVC_VER 2008
+	#else _MSC_VER < 1500
+		#define PSD_USE_MSVC_VER 2005
 	#endif
 #endif
 
