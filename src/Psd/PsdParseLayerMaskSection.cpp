@@ -696,9 +696,9 @@ namespace
 
 					const uint32_t key = fileUtil::ReadFromFileBE<uint32_t>(reader);
 
-					// length needs to be rounded to a multiple of 4
+					// length needs to be rounded to an even number
 					uint32_t length = fileUtil::ReadFromFileBE<uint32_t>(reader);
-					length = bitUtil::RoundUpToMultiple(length, 4u);
+					length = bitUtil::RoundUpToMultiple(length, 2u);
 
 					// read "Section divider setting" to identify whether a layer is a group, or a section divider
 					if (key == util::Key<'l', 's', 'c', 't'>::VALUE)
