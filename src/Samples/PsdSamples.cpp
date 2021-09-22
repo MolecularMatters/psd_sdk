@@ -46,6 +46,12 @@ PSD_POP_WARNING_LEVEL
 PSD_USING_NAMESPACE;
 
 
+#ifdef __linux
+	#define OutputDebugStringA(S) fputs(S,stderr)
+	#include <climits>
+	#include <cstring>
+#endif
+
 // helpers for reading PSDs
 namespace
 {
