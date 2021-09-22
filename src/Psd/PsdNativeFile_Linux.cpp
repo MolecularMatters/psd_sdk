@@ -111,7 +111,7 @@ File::ReadOperation NativeFile::DoWrite(const void* buffer, uint32_t count, uint
     operation->aio_sigevent.sigev_notify = SIGEV_NONE;//No signal will be send 
 
     //OK Execute it
-    if(aio_read(operation) == -1){
+    if(aio_write(operation) == -1){
         //Has Error
         PSD_ERROR("NativeFile","On DoWrite aio_read() => %s",strerror(errno));
         memoryUtil::Free(m_allocator,operation);
@@ -131,6 +131,12 @@ static bool generic_wait(aiocb *operation,Allocator *alloc){
     }
     //Get status
     ssize_t ret = aio_return(operation);
+    int errcode = aio_error(operation);
+
+    if(ret == -1){
+        PSD_ERROR("NativeFile","aio_error() %d => %s",errcode,strerror(errcode));
+    }
+
     memoryUtil::Free(alloc,operation);
     return ret != -1;
 }
@@ -148,7 +154,7 @@ bool NativeFile::DoWaitForWrite(ReadOperation &_operation){
 uint64_t NativeFile::DoGetSize() const{
     struct stat s;
     if(fstat(fd,&s) == -1){
-        PSD_ERROR("NativeFile","lstat() => %s",strerror(errno));
+        PSD_ERROR("NativeFile","fstat() => %s",strerror(errno));
         //Emm,return 0 on error
         return 0;
     }

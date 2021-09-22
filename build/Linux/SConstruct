@@ -18,4 +18,4 @@ test_source = [
 ]
 
 env.StaticLibrary("psd",source)
-env.Program("samples",test_source,CXXFLAGS = ["-std=c++11"])
+env.Program("samples",test_source,CXXFLAGS = ["-std=c++11","-g"])
