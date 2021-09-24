@@ -63,6 +63,9 @@ ImageResourcesSection* ParseImageResourcesSection(const Document* document, File
 		uint32_t resourceSize = fileUtil::ReadFromFileBE<uint32_t>(reader);
 		resourceSize = bitUtil::RoundUpToMultiple(resourceSize, 2u);
 
+		// work out the next position we need to read from once, no matter which image resource we're going to read
+		const uint64_t nextReaderPosition = reader.GetPosition() + resourceSize;
+
 		switch (id)
 		{
 			case imageResource::IPTC_NAA:
@@ -74,8 +77,7 @@ ImageResourcesSection* ParseImageResourcesSection(const Document* document, File
 			case imageResource::PRINT_FLAGS_INFO:
 			case imageResource::PRINT_INFO:
 			case imageResource::RESOLUTION_INFO:
-				// we are currently not interested in this resource, skip it
-				reader.Skip(resourceSize);
+				// we are currently not interested in this resource
 				break;
 
 			case imageResource::DISPLAY_INFO:
@@ -138,8 +140,7 @@ ImageResourcesSection* ParseImageResourcesSection(const Document* document, File
 			case imageResource::WORKING_PATH:
 			case imageResource::MAC_PRINT_MANAGER_INFO:
 			case imageResource::WINDOWS_DEVMODE:
-				// we are currently not interested in this resource, skip it
-				reader.Skip(resourceSize);
+				// we are currently not interested in this resource
 				break;
 
 			case imageResource::VERSION_INFO:
@@ -149,7 +150,6 @@ ImageResourcesSection* ParseImageResourcesSection(const Document* document, File
 
 				const uint8_t hasRealMergedData = fileUtil::ReadFromFileBE<uint8_t>(reader);
 				imageResources->containsRealMergedData = (hasRealMergedData != 0u);
-				reader.Skip(resourceSize - 5u);
 			}
 			break;
 
@@ -183,9 +183,6 @@ ImageResourcesSection* ParseImageResourcesSection(const Document* document, File
 				thumbnail->binaryJpeg = memoryUtil::AllocateArray<uint8_t>(allocator, binaryJpegSize);
 
 				reader.Read(thumbnail->binaryJpeg, binaryJpegSize);
-				
-				const uint32_t bytesToSkip = resourceSize - 28u - binaryJpegSize;
-				reader.Skip(bytesToSkip);
 			}
 			break;
 
@@ -254,12 +251,12 @@ ImageResourcesSection* ParseImageResourcesSection(const Document* document, File
 			break;
 
 			default:
-				// this is a resource we know nothing about, so skip it
-				reader.Skip(resourceSize);
+				// this is a resource we know nothing about
 				break;
 		};
 
-		leftToRead -= 10 + paddedNameLength + resourceSize;
+		reader.SetPosition(nextReaderPosition);
+		leftToRead = static_cast<int64_t>(document->imageResourcesSection.offset + document->imageResourcesSection.length) - static_cast<int64_t>(nextReaderPosition);
 	}
 
 	return imageResources;
