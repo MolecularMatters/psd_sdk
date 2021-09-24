@@ -7,7 +7,6 @@ for i in os.listdir("../../src/Psd/"):
     #Remove win32 source
     if i.endswith(".cpp") and i != "PsdNativeFile.cpp":
         source.append("../../src/Psd/" + i)
-print(source)
 
 source.append("../../src/Psd/Psdminiz.c")
 
