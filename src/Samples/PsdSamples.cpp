@@ -35,6 +35,7 @@
 #include "../Psd/PsdExportDocument.h"
 
 #include "PsdTgaExporter.h"
+#include "PsdDebug.h"
 
 PSD_PUSH_WARNING_LEVEL(0)
 	// disable annoying warning caused by xlocale(337): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
@@ -47,7 +48,6 @@ PSD_USING_NAMESPACE;
 
 
 #ifdef __linux
-	#define OutputDebugStringA(S) fprintf(stderr,"%s",S)
 	#include <climits>
 	#include <cstring>
 #endif
@@ -371,11 +371,22 @@ int SampleReadPsd(void)
 				#else
 				//In Linux, wchar_t is utf32
 				//Convert code from https://stackoverflow.com/questions/23919515/how-to-convert-from-utf-16-to-utf-32-on-linux-with-std-library#comment95663809_23920015
-				//We cannot use C++11,so use macro instead of lambda
-				#define is_surrogate(uc) ( (uc - 0xd800u) < 2048u )
-				#define is_high_surrogate(uc) ( (uc & 0xfffffc00) == 0xd800 )
-				#define is_low_surrogate(uc)  ( (uc & 0xfffffc00) == 0xdc00 )
-				#define surrogate_to_utf32(high,low) ((high << 10) + low - 0x35fdc00)
+				auto is_surrogate = [](uint16_t uc) -> bool
+				{ 
+					return ((uc - 0xd800u) < 2048u ); 
+				};
+				auto is_high_surrogate = [](uint16_t uc) -> bool
+				{
+					return ((uc & 0xfffffc00) == 0xd800 );
+				};
+				auto is_low_surrogate = [](uint16_t uc ) -> bool
+				{
+					return ((uc & 0xfffffc00) == 0xdc00 );
+				};
+				auto surrogate_to_utf32 = [](uint16_t high,uint16_t low) -> wchar_t
+				{
+					return ((high << 10) + low - 0x35fdc00);
+				};
 				static_assert(sizeof(wchar_t) == sizeof(uint32_t));
 
 				//Begin convert
@@ -405,10 +416,6 @@ int SampleReadPsd(void)
 						}
 					}
 				}
-				#undef is_surrogate
-				#undef is_high_surrogate
-				#undef is_low_surrogate
-				#undef surrogate_to_utf32
 				#endif
 			}
 			else

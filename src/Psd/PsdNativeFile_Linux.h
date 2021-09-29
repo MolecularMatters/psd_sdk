@@ -16,6 +16,7 @@ class NativeFile : public File
 public:
 	/// Constructor.
 	explicit NativeFile(Allocator* allocator);
+
 private:
 	virtual bool DoOpenRead(const wchar_t* filename) PSD_OVERRIDE;
 	virtual bool DoOpenWrite(const wchar_t* filename) PSD_OVERRIDE;
@@ -29,7 +30,7 @@ private:
 
 	virtual uint64_t DoGetSize(void) const PSD_OVERRIDE;
 	
-    int fd;
+	int m_fd;
 };
 
 

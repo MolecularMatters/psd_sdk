@@ -4,23 +4,20 @@
 #include "../Psd/Psd.h"
 #include "../Psd/PsdPlatform.h"
 #include "PsdTgaExporter.h"
+#include "PsdDebug.h"
 
 #include <stdio.h>
 #if defined(__APPLE__)
 #include <codecvt>
 #include <locale>
 
-void OutputDebugStringA(const char *message)
-{
-    fprintf(stderr, "%s", message);
-}
 #endif
 
-#ifdef __linux
+#if defined( __linux)
 #include <cwchar>
 #include <cstring>
 #include <cstdlib>
-#define OutputDebugStringA(S) fputs(S,stderr)
+
 #endif
 
 namespace
@@ -93,7 +90,7 @@ namespace tgaExporter
         char const *cs = s.c_str();
         file = fopen(cs, "wb");
         if (file == NULL)
-#else
+#elif defined(__linux)
 		//In Linux
 		char *buffer;
 		size_t n = std::wcslen(filename) * 4 + 1;
