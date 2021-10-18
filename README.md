@@ -24,9 +24,10 @@ Contains the library source code as well as a sample application that shows how 
 
 ## Platforms
 
-At the moment, the SDK compiles for Windows and MacOS. The MacOS port was kindly provided by Oluseyi Sonaiya.
+At the moment, the SDK compiles for Windows, MacOS and Linux.
+The MacOS port was kindly provided by Oluseyi Sonaiya, the Linux port was done by https://github.com/BusyStudent.
 
-As we are primarily a Windows developer, we don't plan on supporting Linux or mobile platforms ourselves. We would gladly accept pull requests though, if anybody wants to help out.
+As we are primarily a Windows developer, we don't plan on supporting mobile platforms ourselves. We would gladly accept pull requests though, if anybody wants to help out.
 
 ## Porting to other platforms
 
