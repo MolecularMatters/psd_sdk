@@ -1,0 +1,20 @@
+import os
+#Import posix asio
+env = Environment(LIBS=['rt'],CC='g++',CXXFLAGS = ["-g"])
+
+source = []
+for i in os.listdir("../../src/Psd/"):
+    #Remove win32 source
+    if i.endswith(".cpp") and i != "PsdNativeFile.cpp":
+        source.append("../../src/Psd/" + i)
+
+source.append("../../src/Psd/Psdminiz.c")
+
+test_source = [
+    "../../src/Samples/PsdSamples.cpp",
+    "../../src/Samples/PsdTgaExporter.cpp",
+    "./libpsd.a"
+]
+
+env.StaticLibrary("psd",source)
+env.Program("samples",test_source,CXXFLAGS = ["-std=c++11","-g"])

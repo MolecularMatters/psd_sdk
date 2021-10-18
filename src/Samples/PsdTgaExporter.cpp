@@ -4,16 +4,20 @@
 #include "../Psd/Psd.h"
 #include "../Psd/PsdPlatform.h"
 #include "PsdTgaExporter.h"
+#include "PsdDebug.h"
 
 #include <stdio.h>
 #if defined(__APPLE__)
 #include <codecvt>
 #include <locale>
 
-void OutputDebugStringA(const char *message)
-{
-    fprintf(stderr, "%s", message);
-}
+#endif
+
+#if defined( __linux)
+#include <cwchar>
+#include <cstring>
+#include <cstdlib>
+
 #endif
 
 namespace
@@ -80,12 +84,22 @@ namespace tgaExporter
 #if PSD_USE_MSVC
 		const errno_t success = _wfopen_s(&file, filename, L"wb");
         if (success != 0)
-#else
+#elif defined(__APPLE__)
         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>,wchar_t> convert;
         std::string s = convert.to_bytes(filename);
         char const *cs = s.c_str();
         file = fopen(cs, "wb");
         if (file == NULL)
+#elif defined(__linux)
+		//In Linux
+		char *buffer;
+		size_t n = std::wcslen(filename) * 4 + 1;
+		buffer = static_cast<char*>(std::malloc(n));
+		std::memset(buffer,0,n);
+		std::wcstombs(buffer,filename,n);
+		file = fopen(buffer,"wb");
+		std::free(buffer);
+		if (file == NULL)
 #endif
 		{
 			OutputDebugStringA("Cannot create file for writing.");

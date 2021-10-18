@@ -35,6 +35,7 @@
 #include "../Psd/PsdExportDocument.h"
 
 #include "PsdTgaExporter.h"
+#include "PsdDebug.h"
 
 PSD_PUSH_WARNING_LEVEL(0)
 	// disable annoying warning caused by xlocale(337): warning C4530: C++ exception handler used, but unwind semantics are not enabled. Specify /EHsc
@@ -45,6 +46,11 @@ PSD_POP_WARNING_LEVEL
 
 PSD_USING_NAMESPACE;
 
+
+#ifdef __linux
+	#include <climits>
+	#include <cstring>
+#endif
 
 // helpers for reading PSDs
 namespace
@@ -358,7 +364,59 @@ int SampleReadPsd(void)
 			std::wstringstream layerName;
 			if (layer->utf16Name)
 			{
+				#ifdef _WIN32
+				//In Windows wchar_t is utf16
+				static_assert(sizeof(wchar_t) == sizeof(uint16_t));
 				layerName << reinterpret_cast<wchar_t*>(layer->utf16Name);
+				#else
+				//In Linux, wchar_t is utf32
+				//Convert code from https://stackoverflow.com/questions/23919515/how-to-convert-from-utf-16-to-utf-32-on-linux-with-std-library#comment95663809_23920015
+				auto is_surrogate = [](uint16_t uc) -> bool
+				{ 
+					return ((uc - 0xd800u) < 2048u ); 
+				};
+				auto is_high_surrogate = [](uint16_t uc) -> bool
+				{
+					return ((uc & 0xfffffc00) == 0xd800 );
+				};
+				auto is_low_surrogate = [](uint16_t uc ) -> bool
+				{
+					return ((uc & 0xfffffc00) == 0xdc00 );
+				};
+				auto surrogate_to_utf32 = [](uint16_t high,uint16_t low) -> wchar_t
+				{
+					return ((high << 10) + low - 0x35fdc00);
+				};
+				static_assert(sizeof(wchar_t) == sizeof(uint32_t));
+
+				//Begin convert
+				size_t u16len = 0;
+				const uint16_t * cur = layer->utf16Name;
+				while(*cur != uint16_t('\0')){
+					cur++;
+					u16len++;
+				}
+				//Len it
+
+				const uint16_t * const end = layer->utf16Name + u16len;
+				const uint16_t * input = layer->utf16Name;
+				while (input < end) {
+					const uint16_t uc = *input++;
+					if (!is_surrogate(uc)) {
+						layerName << wchar_t(uc); 
+					} 
+					else {
+						if (is_high_surrogate(uc) && input < end && is_low_surrogate(*input)){
+							layerName << wchar_t(surrogate_to_utf32(uc, *input++));
+						}
+						else{
+							// Error
+							// Impossible
+							std::abort();
+						}
+					}
+				}
+				#endif
 			}
 			else
 			{
