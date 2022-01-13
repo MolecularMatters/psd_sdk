@@ -6,24 +6,24 @@
 
 #include "PsdUnionCast.h"
 
-#if !defined(USE_SSE)
-#if defined(_M_IX86) || defined(_M_X64)
-#define USE_SSE 1
-#else
-#define USE_SSE 0
-#endif
+#if !defined(PSD_USE_SSE)
+	#if defined(_M_IX86) || defined(_M_X64)
+		#define PSD_USE_SSE 1
+	#else
+		#define PSD_USE_SSE 0
+	#endif
 #endif
 
-#if USE_SSE
-#include <emmintrin.h>
+#if PSD_USE_SSE
+	#include <emmintrin.h>
 #else
-#include <tuple>
+	#include <tuple>
 #endif
 
 
 PSD_NAMESPACE_BEGIN
 
-#if USE_SSE
+#if PSD_USE_SSE
 // splats a single 8-bit, 16-bit or 32-bit value into a SSE2 register
 namespace
 {
@@ -90,7 +90,7 @@ namespace
 
 namespace imageUtil
 {
-#if USE_SSE
+#if PSD_USE_SSE
 	// ---------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------------------------------------------
 	template <typename T>
@@ -215,7 +215,7 @@ namespace imageUtil
 	}
 
 
-#if USE_SSE
+#if PSD_USE_SSE
 	// ---------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------------------------------------------
 	template <typename T>
