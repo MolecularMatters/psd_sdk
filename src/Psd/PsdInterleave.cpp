@@ -16,8 +16,6 @@
 
 #if PSD_USE_SSE
 	#include <emmintrin.h>
-#else
-	#include <tuple>
 #endif
 
 
@@ -242,10 +240,9 @@ namespace imageUtil
 	// ---------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------------------------------------------
 	template <typename T>
-	void InterleaveRGB(const T* PSD_RESTRICT srcR, const T* PSD_RESTRICT srcG, const T* PSD_RESTRICT srcB, T alpha, T* PSD_RESTRICT dest, unsigned int width, unsigned int height, unsigned int blockSize)
+	void InterleaveRGB(const T* PSD_RESTRICT srcR, const T* PSD_RESTRICT srcG, const T* PSD_RESTRICT srcB, T alpha, T* PSD_RESTRICT dest, unsigned int width, unsigned int height, unsigned int /* blockSize */)
 	{
 		// copy pixels
-		std::ignore = blockSize;
 		const unsigned int count = width * height;
 		CopyRemainingPixels(srcR, srcG, srcB, alpha, dest, count);
 	}
@@ -254,10 +251,9 @@ namespace imageUtil
 	// ---------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------------------------------------------
 	template <typename T>
-	void InterleaveRGBA(const T* PSD_RESTRICT srcR, const T* PSD_RESTRICT srcG, const T* PSD_RESTRICT srcB, const T* PSD_RESTRICT srcA, T* PSD_RESTRICT dest, unsigned int width, unsigned int height, unsigned int blockSize)
+	void InterleaveRGBA(const T* PSD_RESTRICT srcR, const T* PSD_RESTRICT srcG, const T* PSD_RESTRICT srcB, const T* PSD_RESTRICT srcA, T* PSD_RESTRICT dest, unsigned int width, unsigned int height, unsigned int /* blockSize */)
 	{
 		// copy pixels
-		std::ignore = blockSize;
 		const unsigned int count = width * height;
 		CopyRemainingPixels(srcR, srcG, srcB, srcA, dest, count);
 	}
