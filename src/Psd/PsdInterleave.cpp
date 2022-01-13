@@ -5,11 +5,23 @@
 #include "PsdInterleave.h"
 
 #include "PsdUnionCast.h"
-#include <emmintrin.h>
+
+#if !defined(PSD_USE_SSE)
+	#if defined(_M_IX86) || defined(_M_X64)
+		#define PSD_USE_SSE 1
+	#else
+		#define PSD_USE_SSE 0
+	#endif
+#endif
+
+#if PSD_USE_SSE
+	#include <emmintrin.h>
+#endif
 
 
 PSD_NAMESPACE_BEGIN
 
+#if PSD_USE_SSE
 // splats a single 8-bit, 16-bit or 32-bit value into a SSE2 register
 namespace
 {
@@ -71,10 +83,12 @@ namespace
 	template <> __m128i InterleaveHi<4>(__m128i a, __m128i b) { return _mm_unpackhi_epi32(a, b); }
 	template <> __m128i InterleaveHi<8>(__m128i a, __m128i b) { return _mm_unpackhi_epi64(a, b); }
 }
+#endif
 
 
 namespace imageUtil
 {
+#if PSD_USE_SSE
 	// ---------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------------------------------------------
 	template <typename T>
@@ -155,6 +169,7 @@ namespace imageUtil
 
 		return blockCount;
 	}
+#endif
 
 
 	// ---------------------------------------------------------------------------------------------------------------------
@@ -198,6 +213,7 @@ namespace imageUtil
 	}
 
 
+#if PSD_USE_SSE
 	// ---------------------------------------------------------------------------------------------------------------------
 	// ---------------------------------------------------------------------------------------------------------------------
 	template <typename T>
@@ -220,6 +236,28 @@ namespace imageUtil
 		const unsigned int remaining = width*height - blockCount*blockSize;
 		CopyRemainingPixels(srcR + blockCount*blockSize, srcG + blockCount*blockSize, srcB + blockCount*blockSize, srcA + blockCount*blockSize, dest + blockCount*blockSize*4u, remaining);
 	}
+#else
+	// ---------------------------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------------------------------------------
+	template <typename T>
+	void InterleaveRGB(const T* PSD_RESTRICT srcR, const T* PSD_RESTRICT srcG, const T* PSD_RESTRICT srcB, T alpha, T* PSD_RESTRICT dest, unsigned int width, unsigned int height, unsigned int /* blockSize */)
+	{
+		// copy pixels
+		const unsigned int count = width * height;
+		CopyRemainingPixels(srcR, srcG, srcB, alpha, dest, count);
+	}
+
+
+	// ---------------------------------------------------------------------------------------------------------------------
+	// ---------------------------------------------------------------------------------------------------------------------
+	template <typename T>
+	void InterleaveRGBA(const T* PSD_RESTRICT srcR, const T* PSD_RESTRICT srcG, const T* PSD_RESTRICT srcB, const T* PSD_RESTRICT srcA, T* PSD_RESTRICT dest, unsigned int width, unsigned int height, unsigned int /* blockSize */)
+	{
+		// copy pixels
+		const unsigned int count = width * height;
+		CopyRemainingPixels(srcR, srcG, srcB, srcA, dest, count);
+	}
+#endif
 
 
 	// ---------------------------------------------------------------------------------------------------------------------
