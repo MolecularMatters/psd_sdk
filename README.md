@@ -33,9 +33,6 @@ As we are primarily a Windows developer, we don't plan on supporting mobile plat
 
 98% of the code is written in a platform-independent way already. If you want to port the SDK to other platforms, here are the things that need porting:
 
-### PsdInterleave.cpp:
-Uses a few SSE2 intrinsics at the moment, should be fairly straightforward to port to C++.
-
 ### PsdNativeFile.cpp:
 Provides an implementation of the PsdFile interface and uses native Windows functions for async operations.
 
