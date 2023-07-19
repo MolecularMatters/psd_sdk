@@ -11,6 +11,8 @@ PSD_NAMESPACE_BEGIN
 /// \brief A struct representing the information extracted from the Color Mode Data section.
 struct ColorModeDataSection
 {
+	uint8_t* colorData;
+	uint32_t sizeOfColorData;
 };
 
 PSD_NAMESPACE_END
