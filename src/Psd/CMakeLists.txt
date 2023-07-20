@@ -36,7 +36,7 @@ set(psd_source_interfaces
 if (WIN32)
   list(APPEND psd_source_interfaces
     PsdNativeFile.h
-    PsdNativeFile.mm
+    PsdNativeFile.cpp
   )
 elseif (APPLE)
   list(APPEND psd_source_interfaces
