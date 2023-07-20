@@ -50,13 +50,11 @@ void DestroyColorModeDataSection(ColorModeDataSection*& section, Allocator* allo
 	PSD_ASSERT_NOT_NULL(section);
 	PSD_ASSERT_NOT_NULL(allocator);
 
-	if (section) {
-		if (section->colorData)
-		{
-			memoryUtil::FreeArray(allocator, section->colorData);
-		}
-		memoryUtil::Free(allocator, section);
+	if (section->colorData)
+	{
+		memoryUtil::FreeArray(allocator, section->colorData);
 	}
+	memoryUtil::Free(allocator, section);
 }
 
 PSD_NAMESPACE_END
