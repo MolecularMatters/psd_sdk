@@ -366,7 +366,7 @@ int SampleReadPsd(void)
 			{
 				#ifdef _WIN32
 				//In Windows wchar_t is utf16
-				static_assert(sizeof(wchar_t) == sizeof(uint16_t));
+				PSD_STATIC_ASSERT(sizeof(wchar_t) == sizeof(uint16_t));
 				layerName << reinterpret_cast<wchar_t*>(layer->utf16Name);
 				#else
 				//In Linux, wchar_t is utf32
@@ -387,7 +387,7 @@ int SampleReadPsd(void)
 				{
 					return ((high << 10) + low - 0x35fdc00);
 				};
-				static_assert(sizeof(wchar_t) == sizeof(uint32_t));
+				PSD_STATIC_ASSERT(sizeof(wchar_t) == sizeof(uint32_t));
 
 				//Begin convert
 				size_t u16len = 0;

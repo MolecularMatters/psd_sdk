@@ -144,3 +144,11 @@
 	#define static_assert(condition, message)			typedef char PSD_JOIN(static_assert_impl_, __LINE__)[(condition) ? 1 : -1]
 	#define nullptr										NULL
 #endif
+
+#define PSD_STATIC_ASSERT_MSG(condition, message)		static_assert((condition), message)
+
+#if __cpp_static_assert >= 201411
+	#define PSD_STATIC_ASSERT(condition)				static_assert((condition))
+#else
+	#define PSD_STATIC_ASSERT(condition)				static_assert((condition), "")
+#endif
