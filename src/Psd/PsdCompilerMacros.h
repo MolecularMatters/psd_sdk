@@ -145,10 +145,8 @@
 	#define nullptr										NULL
 #endif
 
+/// \def PSD_STATIC_ASSERT_MSG
 #define PSD_STATIC_ASSERT_MSG(condition, message)		static_assert((condition), message)
 
-#if __cpp_static_assert >= 201411
-	#define PSD_STATIC_ASSERT(condition)				static_assert((condition))
-#else
-	#define PSD_STATIC_ASSERT(condition)				static_assert((condition), "")
-#endif
+/// \def PSD_STATIC_ASSERT
+#define PSD_STATIC_ASSERT(condition)					static_assert((condition), "")
