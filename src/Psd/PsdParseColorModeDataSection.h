@@ -16,7 +16,7 @@ struct ColorModeDataSection;
 /// Parses the color mode data section in the document, and returns a newly created instance that needs to be freed
 /// by a call to \ref DestroyColorModeDataSection.
 /// \remark This function does not yet parse meaningful data.
-ColorModeDataSection* ParseColorModeDataSection(const Document& document, File* file, Allocator* allocator);
+ColorModeDataSection* ParseColorModeDataSection(const Document* document, File* file, Allocator* allocator);
 
 /// \ingroup Parser
 /// Destroys and nullifies the given \a section previously created by a call to \ref ParseColorModeDataSection.

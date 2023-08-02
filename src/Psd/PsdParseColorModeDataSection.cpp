@@ -4,20 +4,42 @@
 #include "PsdPch.h"
 #include "PsdParseColorModeDataSection.h"
 
-#include "PsdColorModeDataSection.h"
 #include "PsdAllocator.h"
+#include "PsdAssert.h"
+#include "PsdColorModeDataSection.h"
+#include "PsdDocument.h"
 #include "PsdMemoryUtil.h"
+#include "PsdSyncFileReader.h"
+#include "PsdSyncFileUtil.h"
 
 
 PSD_NAMESPACE_BEGIN
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-ColorModeDataSection* ParseColorModeDataSection(const Document&, File*, Allocator*)
+ColorModeDataSection* ParseColorModeDataSection(const Document* document, File* file, Allocator* allocator)
 {
-	// not implemented yet.
-	// only indexed color and Duotone have color mode data, but both are not supported by this library at the moment.
-	return nullptr;
+	PSD_ASSERT_NOT_NULL(document);
+	PSD_ASSERT_NOT_NULL(file);
+	PSD_ASSERT_NOT_NULL(allocator);
+
+	const Section& section = document->colorModeDataSection;
+	if (section.length == 0u)
+	{
+		return nullptr;
+	}
+
+	ColorModeDataSection* colorModeData = memoryUtil::Allocate<ColorModeDataSection>(allocator);
+	*colorModeData = ColorModeDataSection();
+
+	SyncFileReader reader(file);
+	reader.SetPosition(document->colorModeDataSection.offset);
+
+	colorModeData->colorData = memoryUtil::AllocateArray<uint8_t>(allocator, section.length);
+	colorModeData->sizeOfColorData = section.length;
+	reader.Read(colorModeData->colorData, section.length);
+
+	return colorModeData;
 }
 
 
@@ -28,6 +50,10 @@ void DestroyColorModeDataSection(ColorModeDataSection*& section, Allocator* allo
 	PSD_ASSERT_NOT_NULL(section);
 	PSD_ASSERT_NOT_NULL(allocator);
 
+	if (section->colorData)
+	{
+		memoryUtil::FreeArray(allocator, section->colorData);
+	}
 	memoryUtil::Free(allocator, section);
 }
 
