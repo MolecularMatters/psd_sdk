@@ -144,3 +144,9 @@
 	#define static_assert(condition, message)			typedef char PSD_JOIN(static_assert_impl_, __LINE__)[(condition) ? 1 : -1]
 	#define nullptr										NULL
 #endif
+
+/// \def PSD_STATIC_ASSERT_MSG
+#define PSD_STATIC_ASSERT_MSG(condition, message)		static_assert((condition), message)
+
+/// \def PSD_STATIC_ASSERT
+#define PSD_STATIC_ASSERT(condition)					static_assert((condition), "")
