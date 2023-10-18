@@ -5,9 +5,6 @@
 
 #include "../Psd/Psdstdint.h"
 
-#if defined(__APPLE__)
-void OutputDebugStringA(const char *message);
-#endif
 
 namespace tgaExporter
 {

@@ -102,7 +102,7 @@ namespace tgaExporter
 		if (file == NULL)
 #endif
 		{
-			OutputDebugStringA("Cannot create file for writing.");
+			PSD_SAMPLE_LOG("Cannot create file for writing.");
 			return nullptr;
 		}
 

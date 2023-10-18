@@ -242,7 +242,7 @@ int SampleReadPsd(void)
 	// try opening the file. if it fails, bail out.
 	if (!file.OpenRead(srcPath.c_str()))
 	{
-		OutputDebugStringA("Cannot open file.\n");
+		PSD_SAMPLE_LOG("Cannot open file.\n");
 		return 1;
 	}
 
@@ -251,7 +251,7 @@ int SampleReadPsd(void)
 	Document* document = CreateDocument(&file, &allocator);
 	if (!document)
 	{
-		OutputDebugStringA("Cannot create document.\n");
+		PSD_SAMPLE_LOG("Cannot create document.\n");
 		file.Close();
 		return 1;
 	}
@@ -259,7 +259,7 @@ int SampleReadPsd(void)
 	// the sample only supports RGB colormode
 	if (document->colorMode != colorMode::RGB)
 	{
-		OutputDebugStringA("Document is not in RGB color mode.\n");
+		PSD_SAMPLE_LOG("Document is not in RGB color mode.\n");
 		DestroyDocument(document, &allocator);
 		file.Close();
 		return 1;
@@ -269,9 +269,9 @@ int SampleReadPsd(void)
 	// this gives access to the ICC profile, EXIF data and XMP metadata.
 	{
 		ImageResourcesSection* imageResourcesSection = ParseImageResourcesSection(document, &file, &allocator);
-		OutputDebugStringA("XMP metadata:\n");
-		OutputDebugStringA(imageResourcesSection->xmpMetadata);
-		OutputDebugStringA("\n");
+		PSD_SAMPLE_LOG("XMP metadata:\n");
+		PSD_SAMPLE_LOG(imageResourcesSection->xmpMetadata);
+		PSD_SAMPLE_LOG("\n");
 		DestroyImageResourcesSection(imageResourcesSection, &allocator);
 	}
 
@@ -669,7 +669,7 @@ int SampleWritePsd(void)
 		// try opening the file. if it fails, bail out.
 		if (!file.OpenWrite(dstPath.c_str()))
 		{
-			OutputDebugStringA("Cannot open file.\n");
+			PSD_SAMPLE_LOG("Cannot open file.\n");
 			return 1;
 		}
 
@@ -749,7 +749,7 @@ int SampleWritePsd(void)
 		// try opening the file. if it fails, bail out.
 		if (!file.OpenWrite(dstPath.c_str()))
 		{
-			OutputDebugStringA("Cannot open file.\n");
+			PSD_SAMPLE_LOG("Cannot open file.\n");
 			return 1;
 		}
 
@@ -787,7 +787,7 @@ int SampleWritePsd(void)
 		// try opening the file. if it fails, bail out.
 		if (!file.OpenWrite(dstPath.c_str()))
 		{
-			OutputDebugStringA("Cannot open file.\n");
+			PSD_SAMPLE_LOG("Cannot open file.\n");
 			return 1;
 		}
 
@@ -820,10 +820,10 @@ int SampleWritePsd(void)
 
 // ---------------------------------------------------------------------------------------------------------------------
 // ---------------------------------------------------------------------------------------------------------------------
-#if PSD_USE_MSCVC
+#if _WIN32
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPTSTR, int)
 #else
-int main(int argc, const char * argv[])
+int main(int /*argc*/, const char * /*argv[]*/)
 #endif
 {
 	{
