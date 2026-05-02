@@ -59,8 +59,8 @@
 #define NOMCX
 
 
-#if PSD_USE_MSVC
-// the main Windows header
+// On Windows we always need <Windows.h>, regardless of compiler frontend
+#if defined(_WIN32)
 PSD_PUSH_WARNING_LEVEL(0)
 	#include <Windows.h>
 PSD_POP_WARNING_LEVEL
