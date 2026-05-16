@@ -47,6 +47,8 @@ else()
   list(APPEND psd_source_interfaces
     PsdNativeFile_Linux.h
     PsdNativeFile_Linux.cpp
+    PsdStringUtil.h
+    PsdStringUtil.cpp
   )
 endif()
 
