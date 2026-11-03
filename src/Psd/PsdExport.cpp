@@ -1208,7 +1208,7 @@ void WriteDocument(ExportDocument* document, Allocator* allocator, File* file)
 	else
 	{
 		// 16-bit and 32-bit layer data is stored in Additional Layer Information, so we leave the following layer info section empty
-		const uint32_t layerMaskSectionLength = layerInfoSectionLength + 4u * 5u;
+		const uint32_t layerMaskSectionLength = layerInfoSectionLength + 4u * 4u;
 		fileUtil::WriteToFileBE(writer, layerMaskSectionLength);
 
 		// empty layer info section
@@ -1233,7 +1233,7 @@ void WriteDocument(ExportDocument* document, Allocator* allocator, File* file)
 		}
 	}
 
-	fileUtil::WriteToFileBE(writer, layerInfoSectionLength);
+	fileUtil::WriteToFileBE(writer, layerInfoSectionLength - 4u);
 
 	// layer count
 	fileUtil::WriteToFileBE(writer, document->layerCount);
@@ -1317,9 +1317,12 @@ void WriteDocument(ExportDocument* document, Allocator* allocator, File* file)
 		writer.Write(zeroes, paddingNeeded);
 	}
 
-	// global layer mask info
-	const uint32_t globalLayerMaskInfoLength = 0u;
-	fileUtil::WriteToFileBE(writer, globalLayerMaskInfoLength);
+	if (is8BitData)
+	{
+		// global layer mask info
+		const uint32_t globalLayerMaskInfoLength = 0u;
+		fileUtil::WriteToFileBE(writer, globalLayerMaskInfoLength);
+	}
 
 	// for some reason, Photoshop insists on having an (uncompressed) Image Data section for 32-bit files.
 	// this is unfortunate, because it makes the files very large. don't think this is intentional, but rather a bug.
