@@ -543,8 +543,13 @@ static void CreateDataRLE(Allocator* allocator, ExportLayer* layer, unsigned int
 	memoryUtil::FreeArray(allocator, bigEndianRowData);
 	memoryUtil::FreeArray(allocator, rleRowData);
 
-	layer->channelData[channelIndex] = rleData;
-	layer->channelSize[channelIndex] = offset + height * sizeof(uint16_t);
+	const uint32_t rleDataSize = offset + height * static_cast<uint32_t>(sizeof(uint16_t));
+	uint8_t* compactRleData = memoryUtil::AllocateArray<uint8_t>(allocator, rleDataSize);
+	memcpy(compactRleData, rleData, rleDataSize);
+	memoryUtil::FreeArray(allocator, rleData);
+
+	layer->channelData[channelIndex] = compactRleData;
+	layer->channelSize[channelIndex] = rleDataSize;
 }
 
 
